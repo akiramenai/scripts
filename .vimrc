@@ -1,13 +1,19 @@
 "---Mappings and shortcuts---
 nmap <F2> :NERDTreeToggle<CR>
 nmap <leader>l :set list!<CR>
+nmap <leader>i :set paste!<CR>
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 ca tn tabnew
 "---Trailing characters---
 set listchars=tab:▸\ ,eol:¬,trail:☠
 highlight NonText guifg=#4a4a59
 highlight SpecialKey guifg=#4a4a59
 "---Essentials---
+set nocompatible
 set nu
+set wildmenu
+set wildmode=full
+set history=2000
 syntax on
 syntax enable
 "---Search---
@@ -25,7 +31,7 @@ colorscheme solarized
 set exrc
 set secure
 
-let g:clang_format#code_style = "google"
+let g:clang_format#code_style = "file"
 
 augroup filetype
   au! BufRead,BufNewFile *.ll     set filetype=llvm
@@ -38,6 +44,7 @@ augroup END
 filetype plugin indent on
 
 "---Tabs and indentation---
+set ts=2 sts=2 sw=2 noexpandtab
 set smartindent
 if has("autocmd")
   autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
@@ -47,6 +54,7 @@ if has("autocmd")
   autocmd FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
   autocmd FileType cpp setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType llvm setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType cmake setlocal ts=2 sts=2 sw=2 expandtab
   autocmd BufNewFile,BufRead *.rss setfiletype xml
 endif
 
@@ -63,4 +71,4 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 
 nmap <leader>p :call <SID>StripTrailingWhitespaces()<CR>
-autocmd BufWritePre *.cpp,*.h,*.ll,*.js,.vimrc :call <SID>StripTrailingWhitespaces()
+autocmd BufWritePre *.cpp,*.h,*.ll,*.js,.vimrc,CMakeLists.txt :call <SID>StripTrailingWhitespaces()
