@@ -5,6 +5,7 @@ nmap <leader>i :set paste!<CR>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 ca tn tabnew
 "---Trailing characters---
+set encoding=utf-8
 set listchars=tab:▸\ ,eol:¬,trail:☠
 highlight NonText guifg=#4a4a59
 highlight SpecialKey guifg=#4a4a59
@@ -22,11 +23,18 @@ set smartcase
 set incsearch
 set hls
 "---Plugins---
+filetype off                  " required
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'scrooloose/nerdtree'
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
 execute pathogen#infect()
 "---Color scheme---
 set t_Co=16
 set background=dark
-colorscheme solarized
 "---Project specific setting enable---
 set exrc
 set secure
